@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<title>Bootstrap Example</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style type="text/css">
+#custom-search-input {
+	padding: 3px;
+	border: solid 1px #E4E4E4;
+	border-radius: 6px;
+	background-color: #fff;
+}
+
+#custom-search-input input {
+	border: 0;
+	box-shadow: none;
+}
+
+#custom-search-input button {
+	margin: 2px 0 0 0;
+	background: none;
+	box-shadow: none;
+	border: 0;
+	color: #666666;
+	padding: 0 8px 0 10px;
+	border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover {
+	border: 0;
+	box-shadow: none;
+	border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search {
+	font-size: 23px;
+}
+</style>
+</head>
+
+<body>
+
+	<div class="container">
+		<div class="jumbotron">
+			<h1 align=center>Smart Price Comparisons</h1>
+		</div>
+		<div class="col-lg-12" style="padding: 15px;">
+		<form role="form" action="" method="GET">
+			<div id="custom-search-input ">
+				<div class="input-group col-md-12">
+					<input type="text" class="form-control input-lg"  id="keyword"/>
+					<span class="input-group-btn ">
+						<button class="btn btn-info btn-lg" onclick="click()" type="submit">
+							<i class="glyphicon glyphicon-search "></i>
+						</button>
+					</span>
+				</div>
+			</div>
+		</form>
+		</div>
+		<div class="row list-group" style="padding: 15px;" ></div>
+		<div ng-app="myApp" ng-controller="productsController" id="listView">
+			<div class="item col-xs-4 col-lg-4" ng-repeat="product in products">
+				<div class="thumbnail">
+					<img class="group list-group-image" src="{{product.image}}" alt=""
+						width="200px" height="200px" />
+					<div class="caption ">
+						<h4 class="group inner list-group-item-heading">{{product.title}}</h4>
+						<p class="group inner list-group-item-text">{{product.desc}}</p>
+						<div class="row ">
+							<div class="col-xs-12 col-md-6">
+								<p class="lead">{{product.price}}</p>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<a class="btn btn-success" href="{{product.url}}" target="_blank">More Details</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+	</div>
+
+	<script>
+	
+	
+	var app = angular.module('myApp', []);
+	var key = $("#keyword").val();
+	console.log(key);
+	
+	var baseUrl = "http://localhost:7777/StartUpProject/RequestJson?keyword=mobiles";
+	console.log(baseUrl);
+	app.controller('productsController', function productsList($scope,$http){
+	$http.get(String(baseUrl)).success(function(data) {
+	       $scope.products = data;
+	});
+        });
+	
+   </script>
+
+	<script>
+	
+		$( document ).ready(function() {
+			console.log( "document loaded" );
+			
+	    });
+		
+		
+	</script>
+
+
+</body>
+
+</html>
